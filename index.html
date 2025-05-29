@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Twitch Username zu User-ID Converter</title>
+    <meta name="description" content="Wandle einen Twitch-Benutzernamen in die zugehörige User-ID um.">
+</head>
+<body>
+    <h2>Twitch Username zu User-ID Converter</h2>
+    <form id="form">
+        <input type="text" id="username" placeholder="Twitch Username" required>
+        <button type="submit">Umwandeln</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('form').onsubmit = async function(e) {
+            e.preventDefault();
+            let username = document.getElementById('username').value;
+            let res = await fetch('https://twitch-userid-converter.onrender.com/user_id?username=' + username);
+            let data = await res.json();
+            document.getElementById('result').innerText = data.user_id ?
+                'User-ID: ' + data.user_id : 'Fehler: ' + data.error;
+        }
+    </script>
+</body>
+</html>
